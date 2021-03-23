@@ -7,10 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Demo socket.io</h1>     
-        <input id="textbox" type="text" placeholder="text">
+    <h1>Demo socket.io</h1>
+    <div id="login">
+        <input id="namebox" type="text" placeholder="name">
+        <button type="button" id="loginbtn">Login</button>
+    </div>
+    <div id="chat" style="display: none;">
+        <p>username: <span id="logged"></span></p>
+        <input id="textbox" type="text" placeholder="message">
         <button type="button" id="button">Send</button>
         <div id="chatbox"></div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/main.js"></script>
 </body>

@@ -12,10 +12,19 @@ const io = socketio(server);
 app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', (socket) => {
+
+    socket.on('login', msg => {
+        let username = msg.username;
+        if (username != null)
+        socket.emit("logged", {username: username});
+    })
+
     socket.on('chat', msg => {
         io.emit('chat', msg);
     });
 });
+
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
