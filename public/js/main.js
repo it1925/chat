@@ -9,22 +9,39 @@ const lgoinbtn = document.getElementById("loginbtn");
 const logged = document.getElementById("logged");
 
 lgoinbtn.addEventListener('click', function(e) {
+    appendMesage('You Joined');
     socket.emit('login', {username: username.value});
 });
 
 btn.addEventListener("click", function(e){
+    e.preventDefault();
+    appendMesage(`You: ${text.value}`)
     if (text.value)
     socket.emit("chat", {username: logged.textContent, message: text.value});
+    text.value = '';
 });
 
-socket.on('logged', msg => {
+socket.on('logged', name => {
     login.style.display = 'none';
     chat.style.display = '';
-    //při pasní zpráv zobrazuje uživatelovo jméno
-    logged.innerHTML = msg.username;
+    logged.innerHTML = name.username;
+});
+
+socket.on('conected', name => {
+    appendMesage(`${name.username} conected`);
+});
+
+socket.on('user-disconnected', name => {
+    appendMesage(`${name.username} disconnected`)
 });
 
 socket.on("chat", msg => {
     console.log(msg);
     mesagess.innerHTML += `<div><b>${msg.username}</b>:${msg.message}</div>`
 });
+
+function appendMesage(data) {
+    const dataElement = document.createElement('div');
+    dataElement.innerText = data;
+    mesagess.append(dataElement);
+};
