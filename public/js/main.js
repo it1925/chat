@@ -15,10 +15,11 @@ lgoinbtn.addEventListener('click', function(e) {
 
 btn.addEventListener("click", function(e){
     e.preventDefault();
-    if(text.value)
-    appendMesage(`You: ${text.value}`)
+    if(text.value){
+        appendMesage(`You: ${text.value}`)
     if (text.value != null)
     socket.emit("chat", {username: logged.textContent, message: text.value});
+    }
     text.value = '';
 });
 
